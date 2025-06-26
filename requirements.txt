@@ -1,0 +1,13 @@
+future
+numpy==1.19.5
+librosa==0.8.1
+soundfile
+musdb
+museval
+tqdm
+torch==2.1.2
+torchaudio==2.1.2
+tensorboard==2.19.0
+sortedcontainers
+youtube_dl
+pandas==1.1.5
