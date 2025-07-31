@@ -14,13 +14,12 @@ phone_dict = ['a', 'aɪ', 'aʊ', 'b', 'd', 'dʒ', 'e', 'ee', 'eɪ', 'eː', 'f', 
 phone2int = {phone_dict[i]: i for i in range(len(phone_dict))}
 
 def my_collate(batch):
-    audio, targets, seqs, audio_bdr = zip(*batch)
+    audio, targets, seqs = zip(*batch)
     audio = np.array(audio[0][0])
-    audio_bdr = np.array(audio_bdr[0][0])
-    print(audio.shape, audio_bdr.shape)
+    print(audio.shape)
     targets = list(targets)
     seqs = list(seqs)
-    return audio, targets, seqs, audio_bdr
+    return audio, targets, seqs
 
 def worker_init_fn(worker_id):
     np.random.seed(np.random.get_state()[1][0] + worker_id)

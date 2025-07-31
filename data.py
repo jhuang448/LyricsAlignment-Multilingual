@@ -170,9 +170,6 @@ class JamendoLyricsDataset(Dataset):
         # load audio
         waveform, sr = torchaudio.load(audio_path)
 
-        # the bdr model was trained on 22050 Hz
-        waveform_bdr = torchaudio.functional.resample(waveform, sr, self.sr)
-
         # the ac model was trained on 16000 Hz -> resampled to 22050 Hz
         # to simulate the same condition, we resample to 16000 Hz and then 22050 Hz
         waveform = torchaudio.functional.resample(waveform, sr, 16000)
@@ -180,22 +177,15 @@ class JamendoLyricsDataset(Dataset):
 
         if waveform.shape[0] > 1:
             waveform = waveform.mean(dim=0, keepdim=True)
-            waveform_bdr = waveform_bdr.mean(dim=0, keepdim=True)
         audio_length = waveform.shape[-1]
-        if audio_length < waveform_bdr.shape[-1]:
-            waveform_bdr = waveform_bdr[:, :audio_length]
-        elif audio_length > waveform_bdr.shape[-1]:
-            waveform_bdr = torch.nn.functional.pad(waveform_bdr, (0, audio_length - waveform_bdr.shape[-1]))
         
         # read timestamps and lyrics
         timestamps = pd.read_csv(os.path.join(self.annot_dir, file + ".csv"))
         timestamps["phone_idx"] = timestamps["phone_idx"].apply(lambda x: eval(x) if pd.notna(x) else None)
-        timestamps["line_idx"] = timestamps["line_idx"].apply(lambda x: eval(x) if pd.notna(x) else None)
         word_idx = timestamps["phone_idx"].to_list()
-        line_idx = timestamps["line_idx"].dropna().to_list()
         lyrics = "; ;".join(timestamps["phonemizer"].to_list()).split(";")
 
-        return [waveform[0]], (word_idx, line_idx), (lyrics, file, audio_length), [waveform_bdr[0]]
+        return [waveform[0]], (word_idx, None), (lyrics, file, audio_length)
         
 
     def __len__(self):

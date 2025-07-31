@@ -22,9 +22,11 @@ Besides, you might want to install some source-separation tool (e.g. [Spleeter](
 
 ## Run Inference on a Jamendo example
 
-Phonemizer and source-separation tools are not required to run this example:
-
 ```
+# generate phoneme from word files
+python phonemize.py
+
+# run inference
 python eval.py --sepa_dir=./jamendo_example/audio/ --annot_dir=./jamendo_example/annot/ --load_model=./checkpoints/checkpoint_Baseline --pred_dir=./jamendo_example/pred/ --model=baseline --cuda --ext .mp3
 ```
 
