@@ -67,7 +67,7 @@ def predict_align(args, model, test_data, device, model_type):
             with open(os.path.join(args.pred_dir, audio_name + "_align.csv"), 'w') as f:
                 for j in range(len(word_align)):
                     word = word_align[j]
-                    print(word, idx[j][0], idx[j][1])
+                    # print(word, idx[j][0], idx[j][1])
                     f.write("{},{},{}\n".format(word[0] * resolution, word[1] * resolution, words[idx[j][0]:idx[j][1]]))
 
             pbar.update(1)
