@@ -1,5 +1,11 @@
 # LyricsAlignment-Multilingual
 
+This work was presented as a Late-Breaking Demo (LBD) at
+ISMIR 2025: 
+
+Jiawen Huang, Emmanouil Benetos, "**Evaluating Lyrics Alignment under Source Separated Conditions**,"
+International Society for Music Information Retrieval Conference (ISMIR). 2025. [https://ismir2025program.ismir.net/lbd_412.html](https://ismir2025program.ismir.net/lbd_412.html).
+
 This repository is a multilingual adaptation of the following work on English lyrics alignment:
 
 Jiawen Huang, Emmanouil Benetos, Sebastian Ewert, "**Improving Lyrics Alignment through Joint Pitch Detection**," 
